@@ -32,10 +32,10 @@ module.exports = {
             )
             return movie
         },
-        deleteMovie: async (parent, args) => {
-            const movie = await Movie.exists({_id: args.id})
+        deleteMovie: (parent, args) => {
+            const movie = Movie.exists({_id: args.id})
             if (movie){
-                await Movie.findByIdAndDelete(args.id)
+                Movie.findByIdAndDelete(args.id)
                 return{
                     message: "Deleted",
                     code: 204

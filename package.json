@@ -1,12 +1,7 @@
 {
-    "name": "myapi",
-    "version": "1.0.0",
-    "description": "",
-    "main": "app.js",
     "scripts": {
-        "dev": "nodemon ./src/app.js",
-        "clean": "rm -Rf ./dist",
-        "build": "npm run clean; babel ./src --out-dir ./build --copy-files",
+        "dev": "nodemon --exec babel-node ./src/app.js",
+        "build": "babel -d ./build ./src",
         "start": "npm run build && node ./build/app.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -19,8 +14,6 @@
         "@babel/preset-env": "^7.13.9",
         "apollo-server": "^3.5.0",
         "apollo-server-express": "^2.25.3",
-        "babel-cli": "^6.26.0",
-        "babel-preset-env": "^1.7.0",
         "bcrypt": "^5.0.1",
         "body-parser": "^1.19.0",
         "cors": "^2.8.5",
