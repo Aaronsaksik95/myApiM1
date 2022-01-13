@@ -5,6 +5,8 @@
     "main": "app.js",
     "scripts": {
         "dev": "nodemon ./src/app.js",
+        "clean": "rm -Rf ./dist",
+        "build": "npm run clean; babel ./src --out-dir ./build --copy-files",
         "start": "npm run build && node ./build/app.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -30,6 +32,8 @@
         "stripe": "^8.139.0"
     },
     "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-preset-env": "^1.7.0",
         "nodemon": "^2.0.7"
     }
 }
