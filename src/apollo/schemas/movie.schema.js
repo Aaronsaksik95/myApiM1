@@ -4,6 +4,7 @@ module.exports = gql`
     type Movie {
         id: ID
         name: String
+        image: String
         price: Int
         description: String
     }
@@ -16,8 +17,8 @@ module.exports = gql`
         code: Int
     }
     type Mutation {
-        createMovie(id: ID, name: String, price: Int, description: String):Movie
-        updateMovie(id: ID, name: String, price: Int, description: String):Movie
+        createMovie(id: ID, name: String, image: String, price: Int, description: String):Movie
+        updateMovie(id: ID, name: String, image: String, price: Int, description: String):Movie
         deleteMovie(id: ID): Message
     }
 `

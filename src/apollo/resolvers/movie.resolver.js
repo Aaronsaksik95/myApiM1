@@ -15,6 +15,7 @@ module.exports = {
             const movie = new Movie({
                 id: args.id,
                 name: args.name,
+                image: args.image,
                 price: args.price,
                 description: args.description
             });
@@ -26,6 +27,7 @@ module.exports = {
                 args.id,
                 {
                     name: args.name,
+                    image: args.image,
                     price: args.price,
                     description: args.description
                 }
