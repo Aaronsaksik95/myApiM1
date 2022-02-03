@@ -3,12 +3,14 @@ const router = express.Router();
 
 const userRouter = require('./users.route');
 const movieRouter = require('./movies.route')
-const checkoutRouter = require('./checkout.route')
+const webhooksRouter = require('./webhooks.route')
+const stripeRouter = require('./stripe.route')
 
 
 
 router.use('/users/', userRouter);
 router.use('/movie/', movieRouter);
-router.use('/checkout/', checkoutRouter);
+router.use('/webhook/', webhooksRouter);
+router.use('/stripe/', stripeRouter);
 
 module.exports = router;

@@ -24,31 +24,20 @@ const userSchema = new Schema({
         maxlength: 60,
         unique: true
     },
-    // phone: {
-    //     type: String,
-    //     required: false,
-    // },
-    // isAdmin: {
-    //     type: Boolean,
-    //     required: true,
-    //     default: false
-    // },
-    // address: {
-    //     type: String,
-    //     required: false,
-    // },
-    // city: {
-    //     type: String,
-    //     required: false,
-    // },
-    // postalCode: {
-    //     type: Number,
-    //     required: false,
-    // },
-    // country: {
-    //     type: String,
-    //     required: false,
-    // },
+    subscription: {
+        type: Schema.Types.ObjectId,
+        ref: 'Subscription'
+    },
+    isSub: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    isAdmin: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
 })
 
 module.exports = mongoose.model('User', userSchema);

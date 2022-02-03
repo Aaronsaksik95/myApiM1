@@ -4,21 +4,49 @@ module.exports = gql`
     type Movie {
         id: ID
         name: String
+        time: Int
         image: String
-        price: Int
+        video: String
         description: String
+        year: Int
+        like: Int
+        created_at: String
+        category: [Category]
+        actor: [String]
     }
     type Query {
-        getMovies: [Movie]
+        getMovies(category:ID): [Movie]
         getMovie(id:ID):Movie
-    }
-    type Message {
-        message: String
-        code: Int
+        getSearchMovie(name:String): [Movie]
     }
     type Mutation {
-        createMovie(id: ID, name: String, image: String, price: Int, description: String):Movie
-        updateMovie(id: ID, name: String, image: String, price: Int, description: String):Movie
+        createMovie(
+            id: ID, 
+            name: String, 
+            time: Int, 
+            image: String, 
+            video: String, 
+            description: String, 
+            year: Int, 
+            like: Int, 
+            created_at: String, 
+            category: [ID], 
+            actor: [String]
+        ):Movie
+        
+        updateMovie(
+            id: ID, 
+            name: String, 
+            time: Int, 
+            image: String, 
+            video: String, 
+            description: String, 
+            year: Int, 
+            like: Int, 
+            created_at: String, 
+            category: [ID], 
+            actor: [String]
+        ):Movie
         deleteMovie(id: ID): Message
     }
 `
