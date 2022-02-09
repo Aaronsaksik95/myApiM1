@@ -7,6 +7,15 @@ const webhookSecret = "whsec_996e05aa652dc26eba5b99f26685216442e90892164c1cf5128
 
 exports.stripewebhook = (req, res) => {
 
+  const superSub = (price) => {
+    if (price == "price_1KOL9rAfPqs9g2hE2d85Alry"){
+      return true
+    }
+    else {
+      return false
+    }
+  }
+
   let data;
   let eventType;
 
@@ -35,21 +44,23 @@ exports.stripewebhook = (req, res) => {
   switch (eventType) {
     case "payment_intent.succeeded":
       const paymentIntent = data.object;
-      // console.log(paymentIntent)
+      console.log("Paiement réussi.")
       break;
     case "customer.subscription.created":
       const customerSubscription = data.object;
       const sub = new Subscription({
         dateSub: Date.now(),
         idStripeSub: customerSubscription.id,
-        user: customerSubscription.metadata.user
+        user: customerSubscription.metadata.user,
+        price: customerSubscription.metadata.price,
       });
       sub.save()
         .then((data) => {
           User.findByIdAndUpdate(customerSubscription.metadata.user,
             {
               subscription: data.id,
-              isSub: true
+              isSub: true,
+              superSub: superSub(customerSubscription.metadata.price),
             },
             {
               new: true,

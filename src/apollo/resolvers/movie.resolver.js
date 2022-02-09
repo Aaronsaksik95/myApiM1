@@ -1,31 +1,18 @@
 const Movie = require('../../models/movie.model');
 const jwt = require('jsonwebtoken');
 
-module.exports = {
+const applyResolverMid = require('apollo-resolver-middleware');
+
+const resolvers = {
     Query: {
         getMovies: (parent, args, context) => {
-            console.log(context);
-            if (!context.token) {
-                console.log("missing token")
-            }
-            try {
-                var decoded = jwt.verify(context.token, process.env.SECRET_JWT);
-            } catch (err) {
-                console.log(err)
-            }
-            console.log(decoded);
-            if (decoded.isSub == false) {
-                console.log("not Sub")
+            if ("category" in args) {
+                const movies = Movie.find({ category: args.category }).populate('category')
+                return movies
             }
             else {
-                if ("category" in args) {
-                    const movies = Movie.find({ category: args.category })
-                    return movies
-                }
-                else {
-                    const movies = Movie.find().populate('category');
-                    return movies
-                }
+                const movies = Movie.find().populate('category');
+                return movies
             }
         },
         getMovie: (parent, args) => {
@@ -108,3 +95,57 @@ module.exports = {
         }
     }
 }
+
+applyResolverMid(resolvers, 'Query.getMovies', (args, context, next) => {
+    if (!context.token) {
+        console.log("missing token")
+    }
+    try {
+        var decoded = jwt.verify(context.token, process.env.SECRET_JWT);
+    } catch (err) {
+        console.log(err)
+    }
+    if (decoded.isSub == false) {
+        console.log("not Sub")
+    }
+    else {
+        return next()
+    }
+})
+
+applyResolverMid(resolvers, 'Query.getMovie', (args, context, next) => {
+    if (!context.token) {
+        console.log("missing token")
+    }
+    try {
+        var decoded = jwt.verify(context.token, process.env.SECRET_JWT);
+    } catch (err) {
+        console.log(err)
+    }
+    console.log(decoded);
+    if (decoded.isSub == false) {
+        console.log("not Sub")
+    }
+    else {
+        return next()
+    }
+})
+
+applyResolverMid(resolvers, 'Query.getSearchMovie', (args, context, next) => {
+    if (!context.token) {
+        console.log("missing token")
+    }
+    try {
+        var decoded = jwt.verify(context.token, process.env.SECRET_JWT);
+    } catch (err) {
+        console.log(err)
+    }
+    if (decoded.isSub == false) {
+        console.log("not Sub")
+    }
+    else {
+        return next()
+    }
+})
+
+module.exports = resolvers

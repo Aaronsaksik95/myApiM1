@@ -17,6 +17,11 @@ const subscriptionSchema = new Schema({
         required: true,
         unique: true
     },
+    price: {
+        type: String,
+        required: true,
+        unique: false
+    },
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User'

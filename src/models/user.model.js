@@ -2,16 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    lastname: {
-        type: String,
-        required: true,
-        lowercase: true
-    },
-    firstname: {
-        type: String,
-        required: true,
-        lowercase: true
-    },
     email: {
         type: String,
         required: true,
@@ -32,6 +22,11 @@ const userSchema = new Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    superSub: {
+        type: Boolean,
+        required: true,
+        default: false,
     },
     isAdmin: {
         type: Boolean,

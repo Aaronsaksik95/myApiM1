@@ -3,7 +3,7 @@ const stripe = require('stripe')(config.stripe.key)
 require("regenerator-runtime/runtime");
 
 exports.createSubscription = async function (req, res) {
-  const { email, payment_method } = req.body;
+  const { payment_method, email, price } = req.body;
 
   const customer = await stripe.customers.create({
     payment_method: payment_method,
@@ -16,12 +16,13 @@ exports.createSubscription = async function (req, res) {
   const subscription = await stripe.subscriptions.create({
     customer: customer.id,
     items: [
-      { 
-        price: 'price_1KOL9SAfPqs9g2hEMXoxyfCT'
+      {
+        price: price
       }
     ],
     metadata: {
-      user: req.user.id
+      user: req.user.id,
+      price: price
     }
   });
 
@@ -30,3 +31,22 @@ exports.createSubscription = async function (req, res) {
   console.log(status, client_secret)
   res.json({ 'client_secret': client_secret, 'status': status });
 };
+
+exports.getPrices = async function (req, res) {
+  await stripe.prices.list({
+    limit: 2,
+  })
+    .then((data) => {
+      res.send({
+        prices: data,
+        response: true
+      });
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res.status(500).send({
+        error: 500,
+        message: err.message || "NULL"
+      })
+    })
+}

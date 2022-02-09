@@ -8,10 +8,7 @@ exports.register = (req, res) => {
   let hashedPassword = bcrypt.hashSync(req.body.password, 10);
 
   const user = new User({
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
     email: req.body.email,
-    isAdmin: false,
     password: hashedPassword,
   });
 
@@ -22,7 +19,8 @@ exports.register = (req, res) => {
         {
           id: data._id,
           isAdmin: data.isAdmin,
-          isSub: user.isSub,
+          isSub: data.isSub,
+          superSub: data.superSub,
         },
         configs.jwt.secret,
         {
@@ -58,6 +56,7 @@ exports.login = (req, res) => {
           id: user._id,
           isAdmin: user.isAdmin,
           isSub: user.isSub,
+          superSub: user.superSub,
         },
         configs.jwt.secret,
         {
@@ -80,6 +79,7 @@ exports.refreshToken = (req, res) => {
           id: user.id,
           isAdmin: user.isAdmin,
           isSub: user.isSub,
+          superSub: user.superSub
         },
         configs.jwt.secret,
         {
@@ -111,6 +111,60 @@ exports.getUser = (req, res) => {
     })
 };
 
+exports.getUserEmail = (req, res) => {
+  User.findOne({ email: req.params.email })
+    .then((data) => {
+      if (data != null) {
+        res.send({
+          user: data,
+          response: true
+        });
+      }
+      else {
+        res.send({
+          user: null,
+          response: false
+        });
+      }
+
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res.status(500).send({
+        error: 500,
+        message: err.message || "NULL"
+      })
+    })
+
+};
+
+exports.getUserId = (req, res) => {
+  User.findById(req.params.id )
+    .then((data) => {
+      if (data != null) {
+        res.send({
+          user: data,
+          response: true
+        });
+      }
+      else {
+        res.send({
+          user: null,
+          response: false
+        });
+      }
+
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res.status(500).send({
+        error: 500,
+        message: err.message || "NULL"
+      })
+    })
+
+};
+
 exports.updateUser = (req, res) => {
   User.findByIdAndUpdate(req.user.id, req.body, {
     new: true,
@@ -123,6 +177,11 @@ exports.updateUser = (req, res) => {
 
 exports.verifyToken = (req, res) => {
   if (req.user) {
-    res.status(200).json({ verify: true })
+    res.status(200).json(
+      {
+        verify: true,
+        isSub: req.user.isSub
+      }
+    )
   }
 }

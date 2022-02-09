@@ -15,6 +15,30 @@ module.exports = {
         },
         getSerie: (parent, args) => {
             return Serie.findById(args.id);
+        },
+        getSearchSerie: async (parent, args) => {
+            const resultSerie = [];
+            const series = await Serie.find().populate('category')
+            series.forEach(element => {
+                const categories = [];
+                element.category.forEach(categ => {
+                    categories.push(categ.name)
+                });
+                element.actor.forEach(actor => {
+                    if (actor.includes(args.name) && !resultSerie.includes(element)) {
+                        resultSerie.push(element)
+                    }
+                });
+                categories.forEach(categ => {
+                    if (categ.includes(args.name) && !resultSerie.includes(element)) {
+                        resultSerie.push(element)
+                    }
+                })
+                if (element.name.includes(args.name) && !resultSerie.includes(element)) {
+                    resultSerie.push(element)
+                }
+            })
+            return resultSerie;
         }
     },
 
