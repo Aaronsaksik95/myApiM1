@@ -8,7 +8,7 @@ const webhookSecret = "whsec_996e05aa652dc26eba5b99f26685216442e90892164c1cf5128
 exports.stripewebhook = (req, res) => {
 
   const superSub = (price) => {
-    if (price == "price_1KOL9rAfPqs9g2hE2d85Alry"){
+    if (price == "price_1KOL9rAfPqs9g2hE2d85Alry") {
       return true
     }
     else {
@@ -48,6 +48,7 @@ exports.stripewebhook = (req, res) => {
       break;
     case "customer.subscription.created":
       const customerSubscription = data.object;
+
       const sub = new Subscription({
         dateSub: Date.now(),
         idStripeSub: customerSubscription.id,
@@ -74,6 +75,23 @@ exports.stripewebhook = (req, res) => {
             message: err.message || "Some error occured",
           });
         });
+      break;
+    case "customer.subscription.deleted":
+      const customerSubscriptionDeleted = data.object;
+      // console.log(customerSubscriptionDeleted)
+      User.findByIdAndUpdate(customerSubscriptionDeleted.metadata.user,
+        {
+          isSub: false,
+          superSub: false,
+          subscription: null,
+        })
+        .then(() => {
+          Subscription.findOneAndDelete({ idStripeSub: customerSubscriptionDeleted.id }, function (err, docs) {
+            if (err) {
+              console.log(err)
+            }
+          });
+        })
       break;
     default:
   }

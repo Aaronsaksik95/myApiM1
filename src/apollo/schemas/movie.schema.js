@@ -29,7 +29,6 @@ module.exports = gql`
             description: String, 
             year: Int, 
             like: Int, 
-            created_at: String, 
             category: [ID], 
             actor: [String]
         ):Movie

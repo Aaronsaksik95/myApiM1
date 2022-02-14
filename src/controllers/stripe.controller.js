@@ -1,5 +1,7 @@
 const config = require('../configs/stripe.config');
 const stripe = require('stripe')(config.stripe.key)
+const Subscription = require('../models/subscription.model');
+const User = require('../models/user.model');
 require("regenerator-runtime/runtime");
 
 exports.createSubscription = async function (req, res) {
@@ -41,6 +43,26 @@ exports.getPrices = async function (req, res) {
         prices: data,
         response: true
       });
+    })
+    .catch((err) => {
+      console.log(err.message);
+      res.status(500).send({
+        error: 500,
+        message: err.message || "NULL"
+      })
+    })
+}
+
+exports.deleteSub = async function (req, res) {
+  await Subscription.findOne({ user: req.user.id })
+    .then((data) => {
+      stripe.subscriptions.del(data.idStripeSub)
+        .then(() => {
+          res.send({
+            deleted: true,
+            response: true
+          });
+        })
     })
     .catch((err) => {
       console.log(err.message);

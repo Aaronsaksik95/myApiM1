@@ -87,8 +87,10 @@ exports.refreshToken = (req, res) => {
         }
       );
       res.status(200).send({
-        auth: true,
+        verify: true,
         token: userToken,
+        isSub: user.isSub,
+        SuperSub: user.superSub,
       });
     })
     .catch((err) => res.status(404).send(err));
@@ -180,7 +182,9 @@ exports.verifyToken = (req, res) => {
     res.status(200).json(
       {
         verify: true,
-        isSub: req.user.isSub
+        isAdmin: req.user.isAdmin,
+        isSub: req.user.isSub,
+        SuperSub: req.user.superSub,
       }
     )
   }
