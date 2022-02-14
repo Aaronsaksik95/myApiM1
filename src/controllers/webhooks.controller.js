@@ -3,7 +3,7 @@ const stripe = require('stripe')(config.stripe.key);
 const User = require('../models/user.model');
 const Subscription = require('../models/subscription.model');
 
-const webhookSecret = "whsec_996e05aa652dc26eba5b99f26685216442e90892164c1cf5128cab2f83bec3b5";
+const webhookSecret = config.stripe.key;
 
 exports.stripewebhook = (req, res) => {
 
