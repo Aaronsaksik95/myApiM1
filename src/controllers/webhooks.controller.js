@@ -7,6 +7,27 @@ const webhookSecret = config.stripe.webhook_secret;
 
 exports.stripewebhook = (req, res) => {
 
+  // const superSub = (price) => {
+  //   const prices = stripe.prices.list({
+  //     limit: 2,
+  //   })
+  //   if (price == prices.data[0].id) {
+  //     if (prices.data[0].unit_amount > prices.data[1].unit_amount) {
+  //       return true
+  //     }
+  //     else {
+  //       return false
+  //     }
+  //   }
+  //   else if (price == prices.data[1].id) {
+  //     if (prices.data[1].unit_amount > prices.data[0].unit_amount) {
+  //       return true
+  //     }
+  //     else {
+  //       return false
+  //     }
+  //   }
+  // }
   const superSub = (price) => {
     if (price == "price_1KOL9rAfPqs9g2hE2d85Alry") {
       return true
