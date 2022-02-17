@@ -13,10 +13,9 @@ module.exports = {
     Mutation: {
         createCategory: (parent, args) => {
             const category = new Category({
-                id: args.id,
                 name: args.name,
             });
-            category.save()
+            newCategory.save()
             return category
         },
         updateCategory: (parent, args) => {
