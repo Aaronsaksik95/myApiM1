@@ -2,6 +2,7 @@ const config = require('../configs/stripe.config');
 const stripe = require('stripe')(config.stripe.key);
 const User = require('../models/user.model');
 const Subscription = require('../models/subscription.model');
+const mailjet = require('../services/mailjet.service')
 
 const webhookSecret = config.stripe.webhook_secret;
 
@@ -69,7 +70,7 @@ exports.stripewebhook = (req, res) => {
       break;
     case "customer.subscription.created":
       const customerSubscription = data.object;
-
+      console.log(customerSubscription)
       const sub = new Subscription({
         dateSub: Date.now(),
         idStripeSub: customerSubscription.id,
@@ -88,6 +89,7 @@ exports.stripewebhook = (req, res) => {
               new: true,
             })
             .then(() => {
+              mailjet.sendMailSub(customerSubscription.metadata.email, superSub(customerSubscription.metadata.price))
               return { Updated: true }
             })
         })
@@ -105,8 +107,12 @@ exports.stripewebhook = (req, res) => {
           isSub: false,
           superSub: false,
           subscription: null,
+        },
+        {
+          new: true
         })
-        .then(() => {
+        .then((data) => {
+          mailjet.sendMailUnsub(data.email)
           Subscription.findOneAndDelete({ idStripeSub: customerSubscriptionDeleted.id }, function (err, docs) {
             if (err) {
               console.log(err)

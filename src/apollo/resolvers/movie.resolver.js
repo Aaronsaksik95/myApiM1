@@ -7,15 +7,27 @@ const resolvers = {
             const decoded = jwt.verify(context.token, process.env.SECRET_JWT);
             if (decoded.isSub == true) {
                 if ("category" in args) {
-                    const movies = Movie.find({ category: args.category }).populate('category')
-                    return movies
+                    if ("superSub" in args) {
+                        const movies = Movie.find({ category: args.category, superSub: args.superSub }).populate('category')
+                        return movies
+                    }
+                    else {
+                        const movies = Movie.find({ category: args.category }).populate('category')
+                        return movies
+                    }
                 }
                 else {
-                    const movies = Movie.find().populate('category');
-                    return movies
+                    if ("superSub" in args) {
+                        const movies = Movie.find({ superSub: args.superSub }).populate('category');
+                        return movies
+                    }
+                    else {
+                        const movies = Movie.find().populate('category');
+                        return movies
+                    }
+
                 }
             }
-
         },
         getMovie: (parent, args, context) => {
             const decoded = jwt.verify(context.token, process.env.SECRET_JWT);
@@ -67,7 +79,7 @@ const resolvers = {
                     video: args.video,
                     description: args.description,
                     year: args.year,
-                    like: args.like,
+                    superSub: args.superSub,
                     category: args.category,
                     actor: args.actor
                 });
@@ -88,7 +100,7 @@ const resolvers = {
                         video: args.video,
                         description: args.description,
                         year: args.year,
-                        like: args.like,
+                        superSub: args.superSub,
                         category: args.category,
                         actor: args.actor,
                     }

@@ -2,6 +2,7 @@ const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const configs = require("../configs");
+const mailjet = require('../services/mailjet.service')
 
 
 exports.register = (req, res) => {
@@ -15,6 +16,8 @@ exports.register = (req, res) => {
   user
     .save()
     .then((data) => {
+      mailjet
+        .sendMailSignup(req.body.email)
       let userToken = jwt.sign(
         {
           id: data._id,
@@ -141,7 +144,7 @@ exports.getUserEmail = (req, res) => {
 };
 
 exports.getUserId = (req, res) => {
-  User.findById(req.params.id )
+  User.findById(req.params.id)
     .then((data) => {
       if (data != null) {
         res.send({
@@ -184,7 +187,8 @@ exports.verifyToken = (req, res) => {
         verify: true,
         isAdmin: req.user.isAdmin,
         isSub: req.user.isSub,
-        SuperSub: req.user.superSub,
+        superSub: req.user.superSub,
+        token: req.token
       }
     )
   }

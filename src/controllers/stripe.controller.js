@@ -24,7 +24,8 @@ exports.createSubscription = async function (req, res) {
     ],
     metadata: {
       user: req.user.id,
-      price: price
+      price: price,
+      email: email
     }
   });
 

@@ -26,6 +26,7 @@
         "joi": "^17.4.0",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.11.16",
+        "node-mailjet": "^3.3.7",
         "regenerator-runtime": "^0.13.7",
         "stripe": "^8.139.0"
     },

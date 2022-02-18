@@ -32,10 +32,10 @@ const movieSchema = new Schema({
         required: true,
         unique: false
     },
-    like: {
-        type: Number,
-        required: false,
-        unique: false
+    superSub: {
+        type: Boolean,
+        required: true,
+        default: false
     },
     actor: [{
         type: String,

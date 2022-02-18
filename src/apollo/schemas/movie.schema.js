@@ -9,13 +9,13 @@ module.exports = gql`
         video: String
         description: String
         year: Int
-        like: Int
+        superSub: Boolean
         created_at: String
         category: [Category]
         actor: [String]
     }
     type Query {
-        getMovies(category:ID): [Movie]
+        getMovies(category:ID, superSub:Boolean): [Movie]
         getMovie(id:ID):Movie
         getSearchMovie(name:String): [Movie]
     }
@@ -28,7 +28,7 @@ module.exports = gql`
             video: String, 
             description: String, 
             year: Int, 
-            like: Int, 
+            superSub: Boolean
             category: [ID], 
             actor: [String]
         ):Movie
@@ -41,7 +41,7 @@ module.exports = gql`
             video: String, 
             description: String, 
             year: Int, 
-            like: Int, 
+            superSub: Boolean
             created_at: String, 
             category: [ID], 
             actor: [String]
