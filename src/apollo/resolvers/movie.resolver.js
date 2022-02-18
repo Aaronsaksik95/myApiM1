@@ -49,16 +49,37 @@ const resolvers = {
                     });
                     element.actor.forEach(actor => {
                         if (actor.includes(args.name) && !resultMovie.includes(element)) {
-                            resultMovie.push(element)
+                            if (decoded.superSub) {
+                                resultMovie.push(element)
+                            }
+                            else {
+                                if (!element.superSub) {
+                                    resultMovie.push(element)
+                                }
+                            }
                         }
                     });
                     categories.forEach(categ => {
                         if (categ.includes(args.name) && !resultMovie.includes(element)) {
-                            resultMovie.push(element)
+                            if (decoded.superSub) {
+                                resultMovie.push(element)
+                            }
+                            else {
+                                if (!element.superSub) {
+                                    resultMovie.push(element)
+                                }
+                            }
                         }
                     })
                     if (element.name.includes(args.name) && !resultMovie.includes(element)) {
-                        resultMovie.push(element)
+                        if (decoded.superSub) {
+                            resultMovie.push(element)
+                        }
+                        else {
+                            if (!element.superSub) {
+                                resultMovie.push(element)
+                            }
+                        }
                     }
                 })
                 return resultMovie;
