@@ -36,6 +36,13 @@ const resolvers = {
                 return Movie.findById(args.id).populate('category');
             }
         },
+        getMovieNewest: (parent, args, context) => {
+            const decoded = jwt.verify(context.token, process.env.SECRET_JWT);
+
+            if (decoded.isSub == true) {
+                return Movie.findOne().sort('-created_at').populate('category');
+            }
+        },
         getSearchMovie: async (parent, args, context) => {
             const decoded = jwt.verify(context.token, process.env.SECRET_JWT);
 
