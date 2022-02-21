@@ -40,7 +40,7 @@ const resolvers = {
             const decoded = jwt.verify(context.token, process.env.SECRET_JWT);
 
             if (decoded.isSub == true) {
-                return Movie.findOne().sort('-created_at').populate('category');
+                return Movie.findOne({superSub: args.superSub}).sort('-created_at').populate('category');
             }
         },
         getSearchMovie: async (parent, args, context) => {
