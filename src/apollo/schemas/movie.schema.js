@@ -17,7 +17,7 @@ module.exports = gql`
     type Query {
         getMovies(category:ID, superSub:Boolean): [Movie]
         getMovie(id:ID):Movie
-        getMovieNewest(superSub:Boolean): Movie
+        getMovieNewest(category:ID, superSub:Boolean): Movie
         getSearchMovie(name:String, superSub:Boolean): [Movie]
     }
     type Mutation {

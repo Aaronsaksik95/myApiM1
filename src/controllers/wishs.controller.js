@@ -61,7 +61,10 @@ exports.addWish = (req, res) => {
 
 exports.readOne = (req, res) => {
     Wish.findOne({ user: req.user.id })
-        .populate('movies')
+        .populate({
+            path: 'movies',
+            populate: { path: 'category' }
+        })
         .then((data) => {
             res.send({
                 wish: data,

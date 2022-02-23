@@ -8,21 +8,21 @@ const resolvers = {
             if (decoded.isSub == true) {
                 if ("category" in args) {
                     if ("superSub" in args) {
-                        const movies = Movie.find({ category: args.category, superSub: args.superSub }).populate('category')
+                        const movies = Movie.find({ category: args.category, superSub: args.superSub }).sort('-created_at').populate('category')
                         return movies
                     }
                     else {
-                        const movies = Movie.find({ category: args.category }).populate('category')
+                        const movies = Movie.find({ category: args.category }).sort('-created_at').populate('category')
                         return movies
                     }
                 }
                 else {
                     if ("superSub" in args) {
-                        const movies = Movie.find({ superSub: args.superSub }).populate('category');
+                        const movies = Movie.find({ superSub: args.superSub }).sort('-created_at').populate('category');
                         return movies
                     }
                     else {
-                        const movies = Movie.find().populate('category');
+                        const movies = Movie.find().sort('-created_at').populate('category');
                         return movies
                     }
 
@@ -33,14 +33,17 @@ const resolvers = {
             const decoded = jwt.verify(context.token, process.env.SECRET_JWT);
 
             if (decoded.isSub == true) {
-                return Movie.findById(args.id).populate('category');
+                return Movie.findById(args.id).sort('-created_at').populate('category');
             }
         },
         getMovieNewest: (parent, args, context) => {
             const decoded = jwt.verify(context.token, process.env.SECRET_JWT);
 
             if (decoded.isSub == true) {
-                return Movie.findOne({superSub: args.superSub}).sort('-created_at').populate('category');
+                if (args.category) {
+                    return Movie.findOne({ category: args.category, superSub: args.superSub }).sort('-created_at').populate('category');
+                }
+                return Movie.findOne({ superSub: args.superSub }).sort('-created_at').populate('category');
             }
         },
         getSearchMovie: async (parent, args, context) => {
@@ -48,7 +51,7 @@ const resolvers = {
 
             const resultMovie = [];
             if (decoded.isSub == true) {
-                const movies = await Movie.find().populate('category')
+                const movies = await Movie.find().sort('-created_at').populate('category')
                 movies.forEach(element => {
                     const categories = [];
                     element.category.forEach(categ => {
