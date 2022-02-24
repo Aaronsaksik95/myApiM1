@@ -54,7 +54,7 @@ exports.sendMailUnsub = (mailTo) => {
                     ],
                     "Subject": "Désabonnement Netflix",
                     "TextPart": "Mail validation de désabonnement",
-                    "HTMLPart": `<h3>Nous sommes telement triste de vous voir partir !</h3><br /> <h4>Vous pouvez toutefois revenir quand vous voulez.<a href='https://my-next-m1.vercel.app/'> Inscription</a><h4>`,
+                    "HTMLPart": `<h3>Nous sommes tellement triste de vous voir partir !</h3><br /> <h4>Vous pouvez toutefois revenir quand vous voulez.<a href='https://my-next-m1.vercel.app/'> Inscription</a><h4>`,
                     "CustomID": "AppGettingStartedTest"
                 }
             ]
