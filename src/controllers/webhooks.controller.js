@@ -64,13 +64,8 @@ exports.stripewebhook = (req, res) => {
   }
 
   switch (eventType) {
-    case "payment_intent.succeeded":
-      const paymentIntent = data.object;
-      console.log("Paiement réussi.")
-      break;
     case "customer.subscription.created":
       const customerSubscription = data.object;
-      console.log(customerSubscription)
       const sub = new Subscription({
         dateSub: Date.now(),
         idStripeSub: customerSubscription.id,
@@ -101,7 +96,6 @@ exports.stripewebhook = (req, res) => {
       break;
     case "customer.subscription.deleted":
       const customerSubscriptionDeleted = data.object;
-      // console.log(customerSubscriptionDeleted)
       User.findByIdAndUpdate(customerSubscriptionDeleted.metadata.user,
         {
           isSub: false,

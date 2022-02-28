@@ -31,7 +31,6 @@ exports.createSubscription = async function (req, res) {
 
   const status = subscription.status
   const client_secret = subscription.client_secret
-  console.log(status, client_secret)
   res.json({ 'client_secret': client_secret, 'status': status });
 };
 

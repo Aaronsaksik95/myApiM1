@@ -58,7 +58,7 @@ const resolvers = {
                         categories.push(categ.name)
                     });
                     element.actor.forEach(actor => {
-                        if (actor.includes(args.name) && !resultMovie.includes(element)) {
+                        if (actor.toUpperCase().includes(args.name.toUpperCase()) && !resultMovie.includes(element)) {
                             if (decoded.superSub) {
                                 resultMovie.push(element)
                             }
@@ -70,7 +70,7 @@ const resolvers = {
                         }
                     });
                     categories.forEach(categ => {
-                        if (categ.includes(args.name) && !resultMovie.includes(element)) {
+                        if (categ.toUpperCase().includes(args.name.toUpperCase()) && !resultMovie.includes(element)) {
                             if (decoded.superSub) {
                                 resultMovie.push(element)
                             }
@@ -81,7 +81,7 @@ const resolvers = {
                             }
                         }
                     })
-                    if (element.name.includes(args.name) && !resultMovie.includes(element)) {
+                    if (element.name.toUpperCase().includes(args.name.toUpperCase()) && !resultMovie.includes(element)) {
                         if (decoded.superSub) {
                             resultMovie.push(element)
                         }
