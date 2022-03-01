@@ -86,7 +86,7 @@ exports.sendMailSignup = (mailTo) => {
                     ],
                     "Subject": "Inscription Netflix",
                     "TextPart": "Mail validation d'inscription",
-                    "HTMLPart": "<h3>Félicitation pour votre inscription chez Netflix !</h3><br /> <h4>Vous pouvez désormais continuer en choisissant votre abonnement .<a href='https://my-next-m1.vercel.app/signup/planform'> Abonnement</a><h4>",
+                    "HTMLPart": "<h3>Félicitation pour votre inscription chez Netflix !</h3><br /> <h4>Vous pouvez désormais continuer en choisissant votre <a href='https://my-next-m1.vercel.app/signup/planform'> abonnement</a><h4>",
                     "CustomID": "AppGettingStartedTest"
                 }
             ]
