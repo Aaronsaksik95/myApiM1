@@ -12,11 +12,11 @@ module.exports = {
 
     Mutation: {
         createCategory: (parent, args) => {
-            const category = new Category({
+            const newCategory = new Category({
                 name: args.name,
             });
             newCategory.save()
-            return category
+            return newCategory
         },
         updateCategory: (parent, args) => {
             const category = Category.findByIdAndUpdate(
