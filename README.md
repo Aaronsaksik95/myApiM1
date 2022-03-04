@@ -13,7 +13,7 @@ __ __
 - BackOffice -> AddMovies, AddCatégories, GetMovies et DeleteMovie.
 - Profil utilisateur -> désabonnement et modification e-mail.
 - La même logique et les mêmes pages(design) pour le signup et login que Netflix.
-- Formulaire de recherche -> sur les titres, acteurs et catégories.
+- Formulaire de recherche -> sur les titres, acteurs et catégories avec plus de resultat pour les premium.
 - Hover sur le card -> petite information.
     - Click sur le ▿ -> ouverture Popup avec plus d'info et titres similaire.
     - Click sur le ▶︎ -> redirection vers le film (Bande annonce).
