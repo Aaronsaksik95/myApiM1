@@ -15,9 +15,9 @@ __ __
 - La même logique et les mêmes pages(design) pour le signup et login que Netflix.
 - Formulaire de recherche -> sur les titres, acteurs et catégories.
 - Hover sur le card -> petite information.
-- Click sur le ▿ -> ouverture Popup avec plus d'info et titres similaire.
-- Click sur le ▶︎ -> redirection vers le film (Bande annonce).
-- Click sur le + -> Ajout à la wishList.
+    - Click sur le ▿ -> ouverture Popup avec plus d'info et titres similaire.
+    - Click sur le ▶︎ -> redirection vers le film (Bande annonce).
+    - Click sur le + -> Ajout à la wishList.
 
 </br>
 Lien du Projet Netflix:
